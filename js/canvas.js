@@ -12,6 +12,7 @@ var inputKey= 0;
 var prevTime= 0;
 var keys= [];
 var interval;
+var keyManager;
 
 
 function pause() {
@@ -20,30 +21,20 @@ function pause() {
     return;
 }
 
-function readInput() {
-    var html= "keys length: " + keys.length + "<br />";
-    for(var i= 0; i < keys.length; i++) {
-        if (keys[i] == '80')
-            pause= true;
-        html = html + "key true:&nbsp" + keys[i] + "<br />";
-    }
-    if (debug)
-        $('#keys').html(html);
-}
-
 function init() {
-    $(window).keydown(function(event) {
-        if ($.inArray(event.keyCode, keys) == -1)
-            keys[keys.length]= event.keyCode;
-    });
+    console.log("Debug level: " + debug);
+    keyManager= new Keys();
+    keyManager.init(debug);
     
-    $(window).keyup(function(event) {;
-        var index= $.inArray(event.keyCode, keys);
-        if (index != -1)
-            keys.splice(index, 1);
-        else
-            keys= [];
+    $(window).keydown(function(event) {
+        keyManager.addKey(event.keyCode);
     });
+    console.log("Key down bound");
+    
+    $(window).keyup(function(event) { 
+        keyManager.clearKey(event.keyCode);
+    });
+    console.log("Key up bound");
 
     drawObject = { "x": "0", "y": "0", "color": "blue"};
     tick= 50;
@@ -65,7 +56,7 @@ function loop() {
         if (debug) {
             $('#time').html("time: " + time + ", prevTime: " + prevTime);
         }
-        readInput();
+        keyManager.process();
     }
 }
 
