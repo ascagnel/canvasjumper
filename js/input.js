@@ -42,5 +42,6 @@ function Keys() {
     
     this.init= function (debug) {
         this.debug= debug;
+        return true;
     }
 }

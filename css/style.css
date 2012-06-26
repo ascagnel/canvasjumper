@@ -1,3 +1,9 @@
 title {
 	font-size: 2em;
 }
+
+gamearea {
+    text-align: center;
+    padding-left: 50%;
+    padding-right: 50%;
+}

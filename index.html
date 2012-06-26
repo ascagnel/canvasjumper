@@ -5,16 +5,18 @@
         <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="js/input.js"></script>
         <script type="text/javascript" src="js/canvas.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
         <script type="text/javascript">
             var debug= true;
-            $(document).ready(init());
+            var main= new Main();
         </script>
     </head>
-    <body>        
+    <body onload="main.init()">        
         <div align="center" class="title">Canvas Game Test</div>
         
-        <canvas id="game" width="150" height="150">
-        </canvas>
+        <div class="gamearea">
+        <canvas id="canvas" width="300" height="300" class="canvas"></canvas>
+        </div>
         
         <div align="center" id="keys"></div>
         <div align="center" id="time"></div>
